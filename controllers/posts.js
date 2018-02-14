@@ -1,10 +1,28 @@
 var Post = require('../models/post')
 
+
 const findAll = (req,res)=>{
     Post.find()
      .then(docs=>{
          res.status(200).send({message:'post data ',data:docs})
      })
+}
+
+const createTestImaageInput = (req,res)=>{
+    console.log('masuk ke image nih')
+    console.log(req.file)
+    let post = new Post({
+        title: req.body.title,
+        image: req.file.path,
+        userId: req.headers.userid
+    })
+    post.save()
+        .then(doc => {
+            res.send(doc)
+        })
+        .catch(err => {
+            res.send(err)
+        })
 }
 
 const createPost = (req,res)=>{
@@ -53,5 +71,6 @@ module.exports = {
     createPost,
     editPost,
     findOne,
-    deletePost
+    deletePost,
+    createTestImaageInput
 }

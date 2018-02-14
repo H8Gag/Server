@@ -8,11 +8,11 @@ const findAll = (req,res)=>{
 }
 
 const createPost = (req,res)=>{
-    console.log(',asik')
+    
     let post = new Post({
         title:req.body.title,
-        image: req.body.image,
-        userId:req.body.userId
+        image: req.file,
+        userId:req.headers.userid
     })
     post.save()
      .then(doc=>{
@@ -23,13 +23,35 @@ const createPost = (req,res)=>{
      })
 }
 
+const findOne =(req,res)=>{
+    Post.findOne({"_id":req.params.id})
+     .then(doc=>{
+         res.status(200).send({message:'heres your post ',data:doc})
+     })
+     .catch(err=>{res.send(err)})
+}
 
+const editPost = (req,res)=>{
+    Post.update({'_id':req.params.id},{$set:req.body})
+     .then(doc=>{
+         res.status(200).send({message:'updated',data:doc})
+     })
+     .catch(err=>{res.send(err)})
+}
 
-
-
+const deletePost = (req,res)=>{
+    Post.remove({'_id':req.params.id})
+     .then(doc=>{
+         res.status(200).send({message:'data has been deleted',data:doc})
+     })
+     .catch(err=>{res.send(err)})
+}
 
 
 module.exports = {
     findAll,
-    createPost
+    createPost,
+    editPost,
+    findOne,
+    deletePost
 }

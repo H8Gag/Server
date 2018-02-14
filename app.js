@@ -10,8 +10,8 @@ var user = require('./routes/user');
 var posts = require('./routes/posts')
 //mongooes 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/h8gag');
-// mongoose.connect('mongodb://h8gag:1234@ds123658.mlab.com:23658/h8gag');
+// mongoose.connect('mongodb://localhost/h8gag');
+mongoose.connect('mongodb://h8gag:1234@ds123658.mlab.com:23658/h8gag');
 
 var app = express();
 

@@ -26,6 +26,7 @@ userSchema.statics.findOneOrCreate = function (token, cb) {
         .then(result => {
           if (result) { 
             jwt.sign({_id: result._id, name: result.name, email: result.email}, process.env.SECRET_KEY, (err, tok) => {
+
               cb(tok, {"logged in": result.name})
             })
           }

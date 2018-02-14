@@ -8,6 +8,10 @@ var cors = require('cors')
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+//mongooes 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://h8gag:1234@ds123658.mlab.com:23658/h8gag');
+
 var app = express();
 
 

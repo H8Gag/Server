@@ -26,6 +26,7 @@ const createTestImaageInput = (req,res)=>{
 }
 
 const createPostWithUploadGcs = (req,res)=>{
+    console.log(req.headers)
     let post = new Post({
         title: req.body.title,
         image: req.file.cloudStoragePublicUrl,

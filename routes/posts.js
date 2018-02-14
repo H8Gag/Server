@@ -25,7 +25,7 @@ router.get('/:id',auth,postControllers.findOne)
 // router.post('/uploadlocal',upload.single('image'),postControllers.createTestImaageInput)
 
 
-router.post('/',
+router.post('/',auth,
     images.multer.single('image'),
     images.sendUploadToGCS,postControllers.createPostWithUploadGcs) // ini gcs
 

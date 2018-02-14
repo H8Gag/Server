@@ -25,6 +25,23 @@ const createTestImaageInput = (req,res)=>{
         })
 }
 
+const createPostWithUploadGcs = (req,res)=>{
+    console.log(req.headers)
+    let post = new Post({
+        title: req.body.title,
+        image: req.file.cloudStoragePublicUrl,
+        userId: req.headers.userid
+    })
+    post.save()
+        .then(doc => {
+            res.send(doc)
+        })
+        .catch(err => {
+            res.send(err)
+        })
+
+}
+
 const createPost = (req,res)=>{
     
     let post = new Post({
@@ -72,5 +89,6 @@ module.exports = {
     editPost,
     findOne,
     deletePost,
-    createTestImaageInput
+    createTestImaageInput,
+    createPostWithUploadGcs
 }

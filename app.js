@@ -7,10 +7,11 @@ var bodyParser = require('body-parser');
 var cors = require('cors')
 var index = require('./routes/index');
 var user = require('./routes/user');
-
+var posts = require('./routes/posts')
 //mongooes 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://h8gag:1234@ds123658.mlab.com:23658/h8gag');
+mongoose.connect('mongodb://localhost/h8gag');
+// mongoose.connect('mongodb://h8gag:1234@ds123658.mlab.com:23658/h8gag');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use('/', index);
 app.use('/user', user);
+app.use('/posts',posts)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

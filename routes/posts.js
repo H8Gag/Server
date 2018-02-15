@@ -18,7 +18,8 @@ var upload = multer({storage:storage})
 // router.post('/',auth,postControllers.createPost)
 router.get('/',postControllers.findAll)
 router.delete('/:id',auth,postControllers.deletePost)
-router.put('/:id',auth,postControllers.editPost)
+// router.put('/:id',auth,postControllers.editPost)
+router.put('/:id', auth, postControllers.updateScore)
 router.get('/:id',auth,postControllers.findOne)
 
 

@@ -44,6 +44,7 @@ const createPostWithUploadGcs = (req,res)=>{
 
 const updateScore = (req,res)=>{
     // id meme // id user
+    console.log('update score',req.body)
     let condition = req.body.status
      if(condition == 'up'){
          Post.findOne({
@@ -55,10 +56,10 @@ const updateScore = (req,res)=>{
                  doc.votersArray.push(req.headers.userid)
                  doc.save()
                      .then(doc => {
-                         res.send(doc)
+                         res.send({add:true,doc})
                      })
              }else{
-                 res.send({message:'u have already voted'})
+                 res.send({add: false, message:'u have already voted',data:doc})
              }
                
          })
@@ -73,10 +74,10 @@ const updateScore = (req,res)=>{
                  doc.votersArray.push(req.headers.userid)
                  doc.save()
                      .then(doc => {
-                         res.send(doc)
+                         res.send({add:true, doc})
                      })
              } else {
-                 res.send({ message: 'u have already voted' })
+                 res.send({ add:false,message: 'u have already voted' })
              }
          })
              .catch(err => { err })

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+  console.log('auth siniasdasdas')
+  console.log(req.headers)
   jwt.verify(req.headers.token, process.env.SECRET_KEY, (err, decoded) => {
     if (decoded !== undefined) {
       req.headers.userid = decoded._id

@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var postSchema = new Schema({
     title: String,
     image: String,
-    score: Number,
+    score: {type:Number,default:0},
     userId: { type: Schema.Types.ObjectId, ref: 'User' },
     votersArray:[
         {type: Schema.Types.ObjectId, ref: 'User'}

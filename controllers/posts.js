@@ -4,7 +4,7 @@ var Post = require('../models/post')
 const findAll = (req,res)=>{
     Post.find()
      .then(docs=>{
-         res.status(200).send({message:'post data ',data:docs})
+         res.status(200).send({message:'post data ',data:docs.reverse()})
      })
 }
 
@@ -40,6 +40,48 @@ const createPostWithUploadGcs = (req,res)=>{
             res.send(err)
         })
 
+}
+
+const updateScore = (req,res)=>{
+    // id meme // id user
+    let condition = req.body.status
+     if(condition == 'up'){
+         Post.findOne({
+             "_id": req.params.id
+         }).then(doc => {
+            
+             if ((doc.votersArray.indexOf(req.headers.userid)) == -1){
+                 doc.score += 1
+                 doc.votersArray.push(req.headers.userid)
+                 doc.save()
+                     .then(doc => {
+                         res.send(doc)
+                     })
+             }else{
+                 res.send({message:'u have already voted'})
+             }
+               
+         })
+             .catch(err => { err })
+
+     }else if(condition == 'down'){
+         Post.findOne({
+             "_id": req.params.id
+         }).then(doc => {
+             if ((doc.votersArray.indexOf(req.headers.userid)) == -1) {
+                 doc.score -= 1
+                 doc.votersArray.push(req.headers.userid)
+                 doc.save()
+                     .then(doc => {
+                         res.send(doc)
+                     })
+             } else {
+                 res.send({ message: 'u have already voted' })
+             }
+         })
+             .catch(err => { err })
+     }
+  
 }
 
 const createPost = (req,res)=>{
@@ -90,5 +132,6 @@ module.exports = {
     findOne,
     deletePost,
     createTestImaageInput,
-    createPostWithUploadGcs
+    createPostWithUploadGcs,
+    updateScore
 }
